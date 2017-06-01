@@ -1,0 +1,24 @@
+<div class="header">
+  <h2>{{ board?.name }}</h2>
+</div>
+
+<div class="content">
+
+  <p class="text-center" *ngIf="!board?.columns.length">To add column click + button</p>
+
+  <div class="columns" *ngIf="board?.columns.length">
+
+    <div [dragula]="'column'" [dragulaModel]="board?.columns" class="lists">
+      <column [column]="column" *ngFor="let column of board?.columns">
+      </column>
+    </div>
+
+  </div>
+
+  <a md-fab class="add-column-button" (click)="addColumn()">
+    <md-icon>add</md-icon>
+  </a>
+
+</div>
+
+

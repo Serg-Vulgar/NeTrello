@@ -1,0 +1,44 @@
+:host {
+  width: 270px;
+  margin: 0 5px;
+  max-height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #6494aa;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  position: relative;
+  .header {
+    background-color: #bdbdbd;
+    padding-left: 0;
+    width:100%;
+  }
+  h2 {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .add-new-card {
+    input {
+      display: block;
+    }
+  }
+
+  .add-card-block {
+    background-color: #fff;
+    padding: 8px;
+    /deep/ .mat-input-wrapper {
+      margin-bottom: 8px;
+    }
+  }
+  .content {
+    padding: 8px;
+  }
+  .dropbag {
+    border: 2px solid red;
+  }
+}

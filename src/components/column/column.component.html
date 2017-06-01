@@ -1,0 +1,88 @@
+<div class="header" layout="row" layout-align="space-between center">
+  <h2>{{ column.name }}</h2>
+
+  <div>
+    <button md-icon-button [mdMenuTriggerFor]="columnMenu">
+      <md-icon>more_vert</md-icon>
+    </button>
+
+    <md-menu #columnMenu="mdMenu">
+      <button md-menu-item> Settings</button>
+      <button md-menu-item (click)="openDeleteDialog()"> Delete</button>
+    </md-menu>
+  </div>
+
+</div>
+
+<div class="content">
+
+  <!--<div [sortablejs]="column?.cards" [sortablejsOptions]="options">-->
+    <!--<card [card]="card" *ngFor="let card of column?.cards"></card>-->
+  <!--</div>-->
+
+  <div [dragula]='"card"' [dragulaModel]='column?.cards'>
+    <card [card]="card" *ngFor="let card of column?.cards">
+    </card>
+  </div>
+
+  <!--<div *ngIf="!column.cards.length">-->
+    <!--<div [sortablejs]="column?.cards" [sortablejsOptions]="options" class="dropbag">-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <div *ngIf="!column.cards.length">
+    <div
+      [dragula]='"card"'
+      [dragulaModel]='column.cards'
+      class="dropbag">
+    </div>
+  </div>
+
+
+  <div>
+    <div layout="row"
+         layout-align="end center"
+         *ngIf="!addCardBlock">
+      <button md-icon-button
+              class="add-board-button"
+              type="button"
+              md-tooltip="Add new card"
+              (click)="openAddCardBlock($event)">
+        <md-icon>add</md-icon>
+      </button>
+    </div>
+
+    <div layout="column"
+         *ngIf="addCardBlock"
+         class="add-card-block"
+         (clickOutside)="closeAddCardBlock()">
+
+      <form [formGroup]="addCardForm"
+            novalidate
+            (ngSubmit)="addCard()">
+
+        <md-input-container class="full-width">
+          <input mdInput
+                 placeholder="New card name"
+                 formControlName="cardName"
+                 maxlength="50"
+                 mdTooltip="Maximum 50 symbols"
+                 [focus]="true">
+        </md-input-container>
+
+        <div layout="row" layout-align="center">
+          <button md-button type="submit">Add</button>
+          <button md-icon-button color="warn" type="button"
+                  (click)="closeAddCardBlock()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+
+

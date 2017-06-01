@@ -1,0 +1,271 @@
+<div class="card-info">
+
+  <button md-icon-button
+          (click)="dialogRef.close()"
+          class="close-button">
+    <md-icon>close</md-icon>
+  </button>
+
+  <ul class="card-list">
+    <!--name-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">info</md-icon>
+      <div class="item-body">
+        <div class="item-content">
+          <md-input-container class="full-width">
+            <input mdInput
+                   placeholder="Card name"
+                   maxlength="50"
+                   mdTooltip="Maximum 50 symbols"
+                   [value]="card.name"
+                   (blur)="editName($event.target.value)">
+          </md-input-container>
+        </div>
+      </div>
+    </li>
+    <!--name end-->
+
+    <!--description-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">description</md-icon>
+      <div class="item-body">
+        <h3 class="item-title">Description</h3>
+        <div class="item-content">
+          <span class="change-description-button" (click)="openDescriptionBlock($event)" *ngIf="!descriptionBlock">
+            {{ card.description ? 'Change description' : 'Add description' }}
+          </span>
+          <div layout="column">
+
+            <div *ngIf="descriptionBlock" (clickOutside)="closeDescriptionBlock()">
+              <md-input-container class="full-width">
+                <textarea mdInput
+                          placeholder="Description"
+                          maxlength="200"
+                          mdTooltip="Maximum 200 symbols"
+                          [focus]="true"
+                          [(ngModel)]="description">
+                </textarea>
+              </md-input-container>
+
+              <div layout="row" layout-align="center">
+                <button md-button type="button"
+                        (click)="saveDescription()">Save
+                </button>
+                <button md-icon-button color="warn" type="button"
+                        (click)="closeDescriptionBlock()">
+                  <md-icon>close</md-icon>
+                </button>
+              </div>
+            </div>
+            <p *ngIf="!descriptionBlock && card.description">{{ card.description }}</p>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--end description-->
+
+    <!--comments-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">comment</md-icon>
+      <div class="item-body">
+        <h3 class="item-title">
+          Comments
+        </h3>
+        <div class="item-content">
+          <ul class="comments" *ngIf="card.comments.length">
+            <li *ngFor="let comment of card.comments; let i = index" class="comment">
+              <p>{{ comment }}</p>
+              <md-icon (click)="deleteComment(i)" md-tooltip="Delete comment" color="warn">close</md-icon>
+            </li>
+          </ul>
+
+          <div>
+            <md-input-container class="full-width">
+              <textarea mdInput
+                        placeholder="Comment"
+                        maxlength="200"
+                        mdTooltip="Maximum 200 symbols"
+                        [focus]="true"
+                        [(ngModel)]="comment">
+              </textarea>
+            </md-input-container>
+
+            <div layout="row" layout-align="end center">
+              <button md-button type="button"
+                      (click)="sendComment()"
+                      [disabled]="!comment">Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--end comments-->
+
+    <!--check list-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">check_box</md-icon>
+      <div class="item-body">
+        <h3 class="item-title">
+          Check Lists
+        </h3>
+        <div class="item-content">
+
+          <ul>
+            <li *ngFor="let checkList of card.checkLists; let i = index;" class="check-list">
+              <div layout="row" layout-align="space-between center">
+                <h2 class="check-list-name">{{ checkList.name }}</h2>
+                <md-icon md-tooltip="Delete check list" color="warn">close</md-icon>
+              </div>
+              <md-progress-bar
+                class="example-margin"
+                [color]="color"
+                [mode]="mode"
+                [value]="value"
+                [bufferValue]="bufferValue">
+              </md-progress-bar>
+
+              <!--check list item-->
+              <ul *ngIf="checkList.items.length">
+                <li *ngFor="let item of checkList.items" class="list-item"
+                    layout="row" layout-align="space-between center">
+                  <div>
+                    <md-checkbox></md-checkbox>
+                    {{ item.name }}
+                  </div>
+                  <md-icon class="md-18" md-tooltip="Delete item" color="warn">close</md-icon>
+                </li>
+              </ul>
+
+              <div layout="row" layout-align="space-between center">
+                <md-input-container class="full-width">
+                  <input mdInput
+                         placeholder="Item name"
+                         maxlength="50"
+                         mdTooltip="Maximum 50 symbols"
+                         #checkListItemName
+                         (keyup.enter)="addCheckListItem(i, checkListItemName)">
+                </md-input-container>
+
+                <button md-icon-button type="button"
+                        (click)="addCheckListItem(i, checkListItemName)">
+                  <md-icon md-tooltip="Add item">add</md-icon>
+                </button>
+              </div>
+              <!-- end check list item-->
+
+            </li>
+          </ul>
+
+          <md-input-container class="full-width">
+            <input mdInput
+                   placeholder="Checklist name"
+                   maxlength="50"
+                   mdTooltip="Maximum 50 symbols"
+                   [(ngModel)]="checkListName"
+                   (keyup.enter)="addCheckList()">
+          </md-input-container>
+          <div layout="row" layout-align="end center">
+            <button md-button
+                    type="button"
+                    (click)="addCheckList()"
+                    [disabled]="!checkListName">
+              Add checklist
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--end check list-->
+
+    <!--<li class="list-item">-->
+    <!--<md-icon md-list-icon class="item-icon">check_box</md-icon>-->
+    <!--<div class="item-body">-->
+    <!--<h3 class="item-title">-->
+
+    <!--</h3>-->
+    <!--<div class="item-content">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</li>-->
+
+
+    <!--<li class="list-item">-->
+    <!--<md-icon md-list-icon class="item-icon">check_box</md-icon>-->
+    <!--<div class="item-body">-->
+    <!--<h3 class="item-title">-->
+
+    <!--</h3>-->
+    <!--<div class="item-content">-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</li>-->
+
+  </ul>
+
+
+  <md-list dense>
+
+
+    <!--check list-->
+    <!--<md-list-item>-->
+    <!--<md-icon md-list-icon>check_box</md-icon>-->
+    <!--<div class="item-content">-->
+
+    <!--<ul class="check-lists">-->
+    <!--<li *ngFor="let checkList of card.checkLists; let i = index" class="check-list">-->
+    <!--<h2>{{ checkList.name }}</h2>-->
+
+    <!--<ul>-->
+    <!--<li *ngFor="let item of checkList.items">-->
+    <!--<md-checkbox>Check me!</md-checkbox>-->
+    <!--{{ item.name }}-->
+    <!--</li>-->
+    <!--</ul>-->
+
+    <!--<md-input-container class="full-width">-->
+    <!--<input mdInput-->
+    <!--placeholder="Item name"-->
+    <!--maxlength="50"-->
+    <!--mdTooltip="Maximum 50 symbols"-->
+    <!--[(ngModel)]="checkListItemName">-->
+    <!--</md-input-container>-->
+    <!--<button md-button type="button" (click)="addCheckListItem(i)">-->
+    <!--Add item-->
+    <!--</button>-->
+
+    <!--</li>-->
+    <!--</ul>-->
+
+    <!--<md-input-container class="full-width">-->
+    <!--<input mdInput-->
+    <!--placeholder="Check list"-->
+    <!--maxlength="50"-->
+    <!--mdTooltip="Maximum 50 symbols"-->
+    <!--[(ngModel)]="checkListName">-->
+    <!--</md-input-container>-->
+    <!--<button md-button type="button" (click)="addCheckList()">-->
+    <!--Add checklist-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</md-list-item>-->
+    <!--end check list-->
+
+    <!--&lt;!&ndash;members&ndash;&gt;-->
+    <!--<md-list-item>-->
+    <!--<md-icon md-list-icon>folder</md-icon>-->
+    <!--<div class="item-content">members</div>-->
+    <!--</md-list-item>-->
+    <!--&lt;!&ndash;end members&ndash;&gt;-->
+
+    <!--&lt;!&ndash;attachments&ndash;&gt;-->
+    <!--<md-list-item>-->
+    <!--<md-icon md-list-icon>attachment</md-icon>-->
+    <!--<div class="item-content">attachements</div>-->
+    <!--</md-list-item>-->
+    <!--&lt;!&ndash;end attachments&ndash;&gt;-->
+
+  </md-list>
+
+</div>

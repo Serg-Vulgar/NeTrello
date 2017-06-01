@@ -1,0 +1,26 @@
+<div class="content">
+
+  <p class="text-center" *ngIf="!boards.length">To add board click + button</p>
+
+  <div *ngIf="boards.length">
+
+    <h2>Boards:</h2>
+
+    <ul class="boards">
+      <li class="board"
+          (click)="openBoard(board.id)"
+          *ngFor="let board of boards">
+        <h3>{{ board.name }}</h3>
+      </li>
+    </ul>
+
+
+
+  </div>
+
+
+  <a md-fab class="add-board-button" (click)="addBoard()">
+    <md-icon>add</md-icon>
+  </a>
+
+</div>
