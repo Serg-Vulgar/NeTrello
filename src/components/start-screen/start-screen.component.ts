@@ -38,7 +38,6 @@ export class StartScreenComponent implements OnInit {
 
   addBoard() {
 
-
     this.dialogsService
       .prompt('Enter new board name', 'Add board', 50)
       .subscribe(res => {
@@ -54,20 +53,6 @@ export class StartScreenComponent implements OnInit {
         }
       });
 
-
-    // if (this.addBoardForm.valid) {
-    //   let boardName = this.addBoardForm.getRawValue().boardName;
-    //   if (boardName && /\S/.test(boardName)) {
-    //     let board: Board = {
-    //       id: Date.now(),
-    //       name: boardName,
-    //       columns: []
-    //     };
-    //     this.dataService.addBoard(board);
-    //     this.openBoard(board.id);
-    //     this.addBoardForm.reset();
-    //   }
-    // }
   }
 
   openBoard(id: number) {

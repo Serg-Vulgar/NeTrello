@@ -8,7 +8,7 @@
 
     <md-menu #columnMenu="mdMenu">
       <button md-menu-item> Settings</button>
-      <button md-menu-item (click)="openDeleteDialog()"> Delete</button>
+      <button md-menu-item (click)="openDeleteDialog()">Delete</button>
     </md-menu>
   </div>
 
@@ -16,28 +16,13 @@
 
 <div class="content">
 
-  <!--<div [sortablejs]="column?.cards" [sortablejsOptions]="options">-->
-    <!--<card [card]="card" *ngFor="let card of column?.cards"></card>-->
-  <!--</div>-->
-
-  <div [dragula]='"card"' [dragulaModel]='column?.cards'>
-    <card [card]="card" *ngFor="let card of column?.cards">
-    </card>
+  <div [sortablejs]="column?.cards" [sortablejsOptions]="options" [runInsideAngular]="true">
+    <card [card]="card" *ngFor="let card of column?.cards"></card>
   </div>
 
-  <!--<div *ngIf="!column.cards.length">-->
-    <!--<div [sortablejs]="column?.cards" [sortablejsOptions]="options" class="dropbag">-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <div *ngIf="!column.cards.length">
-    <div
-      [dragula]='"card"'
-      [dragulaModel]='column.cards'
-      class="dropbag">
-    </div>
+  <div *ngIf="!column?.cards.length" [sortablejs]="column?.cards" [sortablejsOptions]="options"
+       [runInsideAngular]="true" class="ghost-card">
   </div>
-
 
   <div>
     <div layout="row"

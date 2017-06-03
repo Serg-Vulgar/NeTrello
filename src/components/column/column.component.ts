@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdDialog, MdDialogRef } from '@angular/material';
@@ -6,6 +6,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Column } from '../../services/data.model';
 import { DataService } from '../../services/data.service';
 import { DialogsService } from '../dialog/dialog.service';
+
 
 @Component({
   selector: 'column',
@@ -17,30 +18,14 @@ export class ColumnComponent implements OnInit {
   @Input() column: Column;
 
   addCardForm: FormGroup;
-
   addCardBlock = false;
 
-  newCardButtons = false;
-
   options: SortablejsOptions = {
-    group: {
-      name: 'cards',
-      pull: true,
-      push: true
+    group: 'cards',
+    animation: 150,
+    onEnd: (evt) => {
+      this.dataService.updateCurrentBoard();
     },
-    sort: true,
-    // ghostClass: 'sortable-ghost',
-    // chosenClass: 'sortable-chosen',
-    animation: 200,
-    // onRemove: (event: any) => {
-    //   console.log(this.column.cards);
-    //   if (!this.column.cards.length) {
-    //     this.column.cards = [{
-    //       name: '',
-    //       id: 0
-    //     }];
-    //   }
-    // }
   };
 
   constructor(private fb: FormBuilder,
@@ -51,6 +36,7 @@ export class ColumnComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+
   }
 
   createForm(): void {
@@ -77,10 +63,10 @@ export class ColumnComponent implements OnInit {
           id: Date.now(),
           name: cardName,
           description: '',
+          dueDate: null,
           comments: [],
           checkLists: []
         });
-
         this.dataService.updateCurrentBoard();
         this.closeAddCardBlock();
       }
@@ -95,14 +81,6 @@ export class ColumnComponent implements OnInit {
           this.dataService.deleteColumn(this.column.id);
         }
       });
-  }
-
-  showButtons() {
-    this.newCardButtons = true
-  }
-
-  hideButtons() {
-    this.newCardButtons = false;
   }
 
 }

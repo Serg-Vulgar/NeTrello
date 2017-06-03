@@ -5,7 +5,13 @@
     min-width: 600px;
     position: relative;
     padding-top: 16px;
-    word-break: break-all;    ul {
+    word-break: break-all;
+    @media (max-width: 650px) {
+      & {
+        min-width: 350px;
+      }
+    }
+    ul {
       margin: 0;
       padding: 0;
       list-style: none;
@@ -93,9 +99,24 @@
       background-color: #fff;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
-      .check-list-name {
-        margin: 0;
-        font-size: 1rem;
+      .check-list-header {
+        margin-bottom: 8px;
+
+        border-bottom: 1px solid #aaa;
+        h2 {
+          font-size: 1rem;
+          margin: 0;
+        }
+        .mat-icon {
+          cursor: pointer;
+        }
+      }
+      .progress {
+        .percents {
+          font-size: 0.8rem;
+          white-space: nowrap;
+          margin-right: 4px;
+        }
       }
       .list-item {
         cursor: pointer;

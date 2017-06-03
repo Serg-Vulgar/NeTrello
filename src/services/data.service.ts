@@ -9,7 +9,6 @@ export class DataService {
 //selected board(on board page)
   currentBoard: Board;
 
-  num = 10;
   constructor() {
   }
 
@@ -29,7 +28,6 @@ export class DataService {
   }
 
   updateCurrentBoard() {
-    console.dir(this.num);
     localStorage.setItem(`${this.appName}_B${this.currentBoard.id}`, JSON.stringify(this.currentBoard));
   }
 
@@ -46,6 +44,14 @@ export class DataService {
       return elem.id !== columnId;
     });
     this.updateCurrentBoard();
+  }
+
+  deleteCurrentBoard() {
+    this.boards = this.boards.filter((board) => {
+      return board.id !== this.currentBoard.id;
+    });
+    localStorage.removeItem(`${this.appName}_B${this.currentBoard.id}`);
+    this.currentBoard = null;
   }
 
 }

@@ -11,7 +11,7 @@
 
   }
   .content {
-    min-height: 48px;
+    min-height: 24px;
     width: 100%;
     cursor: pointer;
     padding: 8px;
@@ -19,6 +19,30 @@
     h3 {
       margin: 0;
       font-size: 0.8rem;
+    }
+  }
+  .info {
+    margin-top: 4px;
+    vertical-align: middle;
+    color: #555;
+    .mat-icon, span {
+      vertical-align: middle;
+      font-size: 1rem;
+    }
+    p {
+      margin: 0;
+    }
+    .due-date {
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 2px;
+      background-color: #5884ff;
+      color: #474747;
+      vertical-align: middle;
+      span {
+        font-size: 0.7rem;
+        vertical-align: middle;
+      }
     }
   }
 

@@ -7,8 +7,6 @@ import { Column, Board } from '../../services/data.model';
 import { DataService } from '../../services/data.service';
 import { DialogsService } from '../dialog/dialog.service';
 
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
-
 @Component({
   selector: 'board',
   templateUrl: 'board.component.html',
@@ -18,13 +16,26 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class BoardComponent implements OnInit {
   board: Board;
   addColumnForm: FormGroup;
+  editNameBlock = false;
+  boardName: string;
+
+  boardClassName: string;
+  dueDate: any;
+  options: SortablejsOptions = {
+    group: 'columns',
+    animation: 150,
+    onEnd: (evt) => {
+      this.dataService.updateCurrentBoard();
+    },
+  };
+
+  colors = ['orange-400', 'blue-grey-500', 'lime-500', 'cyan-600'];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder,
               private dataService: DataService,
-              private dialogsService: DialogsService,
-              private dragulaService: DragulaService) {
+              private dialogsService: DialogsService) {
 
   }
 
@@ -34,24 +45,6 @@ export class BoardComponent implements OnInit {
         this.getCurrentBoard(+params.id)
       });
     this.createForm();
-
-    this.dragulaService.setOptions('column', {
-      direction: 'horizontal',
-      revertOnSpill: true,
-      moves: (el: any, container: any, handle: any) => {
-        return handle.className === 'header';
-      }
-    });
-
-    this.dragulaService.drop.subscribe((value: any) => {
-      if (value[0] === 'column') {
-       return this.dataService.updateCurrentBoard();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.dragulaService.destroy('column');
   }
 
   createForm(): void {
@@ -71,7 +64,6 @@ export class BoardComponent implements OnInit {
             name: columnName,
             cards: []
           });
-          this.dataService.num = 20
           this.dataService.updateCurrentBoard();
         }
       });
@@ -79,11 +71,47 @@ export class BoardComponent implements OnInit {
 
   getCurrentBoard(id: number) {
     let board = this.dataService.getCurrentBoard(id);
+    console.log(board);
     if (board) {
       this.board = board;
+      this.boardName = this.board.name;
     } else {
       this.router.navigate(['/start']);
     }
   }
 
+  editBoardName(e: Event,) {
+    e.stopPropagation();
+    this.editNameBlock = true;
+  }
+
+  saveBoardName() {
+    if (this.boardName && /\S/.test(this.boardName)) {
+      this.boardName = this.boardName.trim();
+      this.board.name = this.boardName;
+      this.dataService.updateCurrentBoard();
+    } else {
+      this.boardName = this.board.name;
+    }
+    this.editNameBlock = false
+  }
+
+
+  deleteCurrentBoard() {
+    this.dialogsService
+      .confirm('Are you sure you want to delete this board?', 'Yes, delete')
+      .subscribe(res => {
+        if (res) {
+          this.dataService.deleteCurrentBoard();
+          this.router.navigate(['/start']);
+        }
+      });
+  }
+
+
+  setBoardClass(color: string) {
+    console.log(color);
+    this.boardClassName = color;
+
+  }
 }

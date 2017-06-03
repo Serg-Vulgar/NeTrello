@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataService.checkData();
     this.boards = this.dataService.boards;
   }
 

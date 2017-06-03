@@ -17,7 +17,7 @@ export interface Card {
   members?: Array<any>,
   checkLists?: Array<any>,
   comments?: Array<CheckList>,
-  dueDate?: any,
+  dueDate?: number | null,
   timeTracking?: {
     estimatedTime: any,
     spentTime: any,
@@ -33,5 +33,5 @@ export interface CheckList {
 
 export interface CheckItem {
   name: string,
-  checked: boolean
+  done: boolean
 }

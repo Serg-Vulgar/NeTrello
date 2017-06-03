@@ -1,5 +1,15 @@
 <div (click)="openCardInfo($event)" class="content">
   <h3>{{ card.name }}</h3>
-  <md-icon *ngIf="card.description">description</md-icon>
+  <div class="info">
+    <md-icon *ngIf="card.description">description</md-icon>
+    <span *ngIf="card.comments.length">
+      <md-icon>comment</md-icon>{{card.comments.length }}
+    </span>
 
+    <p *ngIf="card.dueDate" class="due-date">
+      <md-icon>access_time</md-icon>
+      <span>{{ card.dueDate | date }}</span>
+    </p>
+
+  </div>
 </div>

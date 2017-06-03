@@ -1,6 +1,6 @@
 <div class="content">
 
-  <p class="text-center" *ngIf="!boards.length">To add board click + button</p>
+  <p class="empty-list-text" *ngIf="!boards.length">To add board click + button</p>
 
   <div *ngIf="boards.length">
 
@@ -14,10 +14,7 @@
       </li>
     </ul>
 
-
-
   </div>
-
 
   <a md-fab class="add-board-button" (click)="addBoard()">
     <md-icon>add</md-icon>

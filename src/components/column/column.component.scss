@@ -5,40 +5,50 @@
   display: inline-block;
   vertical-align: top;
   white-space: normal;
-  overflow-y: auto;
-  overflow-x: hidden;
+  //overflow-y: auto;
+  //overflow-x: hidden;
   background-color: #6494aa;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   position: relative;
+  height: auto;
+  overflow: hidden;
+  cursor: pointer;
   .header {
     background-color: #bdbdbd;
     padding-left: 0;
-    width:100%;
-  }
-  h2 {
-    margin-left: 8px;
-    font-size: 1rem;
-    color: #666;
-  }
-
-  .add-new-card {
-    input {
-      display: block;
-    }
-  }
-
-  .add-card-block {
-    background-color: #fff;
-    padding: 8px;
-    /deep/ .mat-input-wrapper {
-      margin-bottom: 8px;
+    width: 100%;
+    h2 {
+      margin-left: 8px;
+      font-size: 1rem;
+      color: #666;
     }
   }
   .content {
     padding: 8px;
-  }
-  .dropbag {
-    border: 2px solid red;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    .add-new-card {
+      input {
+        display: block;
+      }
+    }
+
+    .add-card-block {
+      background-color: #fff;
+      padding: 8px;
+      /deep/ .mat-input-wrapper {
+        margin-bottom: 8px;
+      }
+    }
+
+    .ghost-card {
+      padding: 48px 0 48px 0;
+      margin: -52px 0 -44px;
+      overflow: hidden;
+    }
+
   }
 }

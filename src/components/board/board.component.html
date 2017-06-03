@@ -1,24 +1,117 @@
-<div class="header">
-  <h2>{{ board?.name }}</h2>
-</div>
+<!--<div class="header" layout="row" layout-align="space-between center">-->
+<!--<div class="full-width">-->
+<!--<h2 (click)="editBoardName($event)" *ngIf="!editNameBlock">{{ board?.name }}</h2>-->
 
-<div class="content">
+<!--<md-input-container *ngIf="editNameBlock">-->
+<!--<input mdInput-->
+<!--#nameInput-->
+<!--maxlength="50"-->
+<!--mdTooltip="Maximum 50 symbols"-->
+<!--[(ngModel)]="boardName"-->
+<!--[focus]="true"-->
+<!--(clickOutside)="saveBoardName()"-->
+<!--(keyup.enter)="saveBoardName()">-->
+<!--</md-input-container>-->
+<!--</div>-->
 
-  <p class="text-center" *ngIf="!board?.columns.length">To add column click + button</p>
 
-  <div class="columns" *ngIf="board?.columns.length">
+<!--<button md-icon-button class="board-menu">-->
+<!--<md-icon>more_vert</md-icon>-->
+<!--</button>-->
+<!--</div>-->
 
-    <div [dragula]="'column'" [dragulaModel]="board?.columns" class="lists">
-      <column [column]="column" *ngFor="let column of board?.columns">
-      </column>
+<!--<div class="content">-->
+
+<!--<p class="empty-board-text" *ngIf="!board?.columns.length">To add column click + button</p>-->
+
+<!--<div class="columns" *ngIf="board?.columns.length">-->
+
+<!--<div [sortablejs]="board?.columns" [sortablejsOptions]="options" [runInsideAngular]="true" class="lists">-->
+<!--<column [column]="column" *ngFor="let column of board?.columns"></column>-->
+<!--</div>-->
+
+<!--</div>-->
+
+<!--<a md-fab class="add-column-button" (click)="addColumn()">-->
+<!--<md-icon>add</md-icon>-->
+<!--</a>-->
+
+<!--</div>-->
+
+
+<md-sidenav-container class="board-wrapper">
+  <md-sidenav #sidenav class="board-sidenav" align="end">
+
+    <div layout="row" layout-align="space-between center" class="sidenav-header">
+      <h4>Board settings</h4>
+
+      <button md-icon-button
+              (click)="sidenav.close()">
+        <md-icon>close</md-icon>
+      </button>
     </div>
 
+    <div class="sidenav-content">
+
+      <p>Board background</p>
+
+      <div class="board-colors">
+        <div class="color {{ color }}" *ngFor="let color of colors"
+             (click)="setBoardClass(color)">
+        </div>
+      </div>
+
+
+      <button md-raised-button color="warn" (click)="deleteCurrentBoard()">
+        Delete board
+      </button>
+
+    </div>
+
+
+  </md-sidenav>
+
+  <div class="board-content {{ boardClassName }}">
+    <div class="header" layout="row" layout-align="space-between center">
+      <div class="full-width">
+        <h2 (click)="editBoardName($event)" *ngIf="!editNameBlock">{{ board?.name }}</h2>
+
+        <md-input-container *ngIf="editNameBlock">
+          <input mdInput
+                 #nameInput
+                 maxlength="50"
+                 mdTooltip="Maximum 50 symbols"
+                 [(ngModel)]="boardName"
+                 [focus]="true"
+                 (clickOutside)="saveBoardName()"
+                 (keyup.enter)="saveBoardName()">
+        </md-input-container>
+      </div>
+
+
+      <button md-icon-button (click)="sidenav.open()" md-tooltip="Board settings">
+        <md-icon>more_vert</md-icon>
+      </button>
+    </div>
+
+    <div class="content">
+
+      <p class="empty-board-text" *ngIf="!board?.columns.length">To add column click + button</p>
+
+      <div class="columns" *ngIf="board?.columns.length">
+
+        <div [sortablejs]="board?.columns" [sortablejsOptions]="options" [runInsideAngular]="true" class="lists">
+          <column [column]="column" *ngFor="let column of board?.columns"></column>
+        </div>
+
+      </div>
+
+      <a md-fab class="add-column-button" (click)="addColumn()">
+        <md-icon>add</md-icon>
+      </a>
+
+    </div>
   </div>
 
-  <a md-fab class="add-column-button" (click)="addColumn()">
-    <md-icon>add</md-icon>
-  </a>
 
-</div>
-
-
+</md-sidenav-container>

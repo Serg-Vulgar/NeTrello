@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-//
-// import { StartScreenComponent } from '../components/start-screen/start-screen.component'
-// import { BoardComponent } from '../components/board/board.component'
+
+import { StartScreenComponent } from '../start-screen/start-screen.component';
+import { BoardComponent } from '../board/board.component';
 
 @NgModule({
   imports: [
@@ -11,6 +11,14 @@ import { RouterModule } from '@angular/router';
         path: '',
         redirectTo: '/start',
         pathMatch: 'full'
+      },
+      {
+        path: 'start',
+        component: StartScreenComponent
+      },
+      {
+        path: 'board/:id',
+        component: BoardComponent
       },
       {
         path: '**',
@@ -23,5 +31,5 @@ import { RouterModule } from '@angular/router';
   ]
 })
 
-export class AppRoutingModule {
+export class DashboardRoutingModule {
 }
