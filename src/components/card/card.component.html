@@ -1,15 +1,39 @@
-<div (click)="openCardInfo($event)" class="content">
-  <h3>{{ card.name }}</h3>
-  <div class="info">
-    <md-icon *ngIf="card.description">description</md-icon>
-    <span *ngIf="card.comments.length">
-      <md-icon>comment</md-icon>{{card.comments.length }}
-    </span>
+<div class="card">
+  <div (click)="openCardInfo($event)" class="content">
+    <h3 class="title">{{ card.name }}</h3>
+    <div class="info"
+         *ngIf="card.description || card.comments.length ||
+         card.members.length || card.checkLists.length ||
+          card.dueDate || card.attachments.length">
+      <md-icon *ngIf="card.description">description</md-icon>
 
-    <p *ngIf="card.dueDate" class="due-date">
-      <md-icon>access_time</md-icon>
-      <span>{{ card.dueDate | date }}</span>
-    </p>
+      <span *ngIf="card.comments.length">
+        <md-icon>comment</md-icon>
+        <span class="number">{{ card.comments.length }}</span>
+      </span>
 
+      <span *ngIf="card.members.length">
+        <md-icon>people</md-icon>
+        <span class="number">{{ card.members.length }}</span>
+      </span>
+
+      <span *ngIf="card.attachments.length">
+        <md-icon>attachment</md-icon>
+        <span class="number">{{ card.attachments.length }}</span>
+      </span>
+
+      <span *ngIf="card.checkLists.length" class="tasks"
+            [ngClass]="{'complete' : doneTasks && allTasks && doneTasks === allTasks}">
+        <md-icon>check_box</md-icon>
+        <span class="number">{{ doneTasks }}/{{ allTasks }}</span>
+      </span>
+
+      <p *ngIf="card.dueDate" class="due-date" [ngClass]="{'due-date-over': dueDateOver}">
+        <md-icon>access_time</md-icon>
+        <span>{{ card.dueDate | date }}</span>
+        <span *ngIf="dueDateOver">(expired)</span>
+      </p>
+
+    </div>
   </div>
 </div>

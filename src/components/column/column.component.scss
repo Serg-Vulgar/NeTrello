@@ -1,35 +1,73 @@
+@import '../../styles/variables';
+
 :host {
   width: 270px;
   margin: 0 5px;
-  max-height: 100%;
   display: inline-block;
   vertical-align: top;
   white-space: normal;
-  //overflow-y: auto;
-  //overflow-x: hidden;
-  background-color: #6494aa;
-  border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  position: relative;
-  height: auto;
+  height: 100%;
   overflow: hidden;
-  cursor: pointer;
+  border-radius: 2px;
+  .column {
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $grey-300;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+  }
   .header {
-    background-color: #bdbdbd;
+    background-color: $grey-300;
     padding-left: 0;
     width: 100%;
-    h2 {
-      margin-left: 8px;
+    position: relative;
+    .column-name {
       font-size: 1rem;
       color: #666;
+      width: 100%;
+      margin: 0;
+      padding: 11px 42px 11px 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mat-input-container {
+      width: 220px;
+      font-size: 1rem;
+      margin-left: 8px;
+      margin-bottom: 8px;
+      /deep/ .mat-input-wrapper {
+        margin: 0 !important;
+      }
+      /deep/ input {
+        font-style: italic;
+        width: 100%;
+        padding: 8px 0 0 0;
+      }
+    }
+    .header-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .info {
+      font-size: 0.7rem;
+      padding: 0 8px;
+      color: $grey-800;
+      p {
+        margin: 0;
+      }
+      .mat-icon, span {
+        vertical-align: middle;
+      }
     }
   }
   .content {
-    padding: 8px;
-    position: relative;
+    padding: 0 8px 8px;
     overflow-y: auto;
     overflow-x: hidden;
-    height: auto;
+    max-height: 100%;
     .add-new-card {
       input {
         display: block;
@@ -49,6 +87,22 @@
       margin: -52px 0 -44px;
       overflow: hidden;
     }
+  }
 
+  .sortable-ghost {
+    box-shadow: none;
+    opacity: 0.7;
+    /deep/ .card {
+      position: relative;
+      &:after {
+        content: '';
+        background-color: #7e7e7e;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
   }
 }

@@ -5,7 +5,6 @@ import { DataService } from '../../../services/data.service';
 import { CheckItem, CheckList } from '../../../services/data.model';
 import { DialogsService } from '../../dialog/dialog.service';
 
-
 @Component({
   selector: 'card-info',
   templateUrl: 'card-info.component.html',
@@ -18,6 +17,11 @@ export class CardInfoComponent implements OnInit {
   description = '';
   comment = '';
   checkListName = '';
+  member = '';
+  attachment = {
+    link: '',
+    name: ''
+  };
 
   constructor(@Inject(MD_DIALOG_DATA) public data: any,
               private dataService: DataService,
@@ -27,16 +31,17 @@ export class CardInfoComponent implements OnInit {
 
   ngOnInit() {
     this.card = this.data;
-    console.log('CARD', this.card);
   }
 
+  // name
   editName(name: string) {
-    if (name && /\S/.test(name)) {
+    if (this.stringNotEmpty(name)) {
       this.card.name = name.trim();
       this.dataService.updateCurrentBoard();
     }
   }
 
+// description
   openDescriptionBlock(e: Event) {
     e.stopPropagation();
     this.descriptionBlock = true;
@@ -48,7 +53,7 @@ export class CardInfoComponent implements OnInit {
   }
 
   saveDescription() {
-    if (this.description && /\S/.test(this.description)) {
+    if (this.stringNotEmpty(this.description)) {
       this.description = this.description.trim();
       this.card.description = this.description;
     } else {
@@ -58,8 +63,9 @@ export class CardInfoComponent implements OnInit {
     this.closeDescriptionBlock();
   }
 
+  // comments
   sendComment() {
-    if (this.comment && /\S/.test(this.comment)) {
+    if (this.stringNotEmpty(this.comment)) {
       this.card.comments.push(this.comment.trim());
       this.comment = '';
       this.dataService.updateCurrentBoard();
@@ -71,8 +77,9 @@ export class CardInfoComponent implements OnInit {
     this.dataService.updateCurrentBoard();
   }
 
+  // check list
   addCheckList() {
-    if (this.checkListName && /\S/.test(this.checkListName)) {
+    if (this.stringNotEmpty(this.checkListName)) {
       this.card.checkLists.push({
         name: this.checkListName.trim(),
         items: []
@@ -95,7 +102,7 @@ export class CardInfoComponent implements OnInit {
 
   addCheckListItem(listIndex: number, input: HTMLInputElement) {
     let checkListItemName = input.value;
-    if (checkListItemName && /\S/.test(checkListItemName)) {
+    if (this.stringNotEmpty(checkListItemName)) {
       this.card.checkLists[listIndex].items.push({
         name: checkListItemName.trim(),
         done: false
@@ -109,7 +116,6 @@ export class CardInfoComponent implements OnInit {
     checkList.items.splice(i, 1);
     this.dataService.updateCurrentBoard();
   }
-
 
   checkOnListItem(item: CheckItem) {
     item.done = !item.done;
@@ -127,6 +133,7 @@ export class CardInfoComponent implements OnInit {
     }
   }
 
+  // due date
   changeDate(date: any) {
     this.card.dueDate = Date.parse(date);
     this.dataService.updateCurrentBoard();
@@ -137,5 +144,49 @@ export class CardInfoComponent implements OnInit {
     dateInput.value = '';
     this.card.dueDate = null;
     this.dataService.updateCurrentBoard();
+  }
+
+  // members
+  addMember() {
+    if (this.stringNotEmpty(this.member)) {
+      let capitalizeName = this.member.trim().toLowerCase().replace(/(^| )(\w)/g, s => s.toUpperCase());
+
+      this.card.members.push(capitalizeName);
+      this.member = '';
+      this.dataService.updateCurrentBoard();
+    }
+  }
+
+  deleteMember(i: number) {
+    this.card.members.splice(i, 1);
+    this.dataService.updateCurrentBoard();
+  }
+
+  // attachments
+  addAttachment() {
+    if (this.stringNotEmpty(this.attachment.link)) {
+
+      this.card.attachments.push({
+        name: this.attachment.name.trim(),
+        link: this.attachment.link.trim()
+      });
+      this.attachment.name = '';
+      this.attachment.link = '';
+      this.dataService.updateCurrentBoard();
+
+    }
+  }
+
+  deleteAttachment(i: number) {
+    this.card.attachments.splice(i, 1);
+    this.dataService.updateCurrentBoard();
+  }
+
+  deleteCard() {
+    this.dialogRef.close('delete');
+  }
+
+  stringNotEmpty(string: string) {
+    return string && /\S/.test(string)
   }
 }

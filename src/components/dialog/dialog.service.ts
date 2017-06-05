@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Rx';
 import { ConfirmDialog } from './confirm-dialog.component';
 import { PromptDialog } from './prompt-dialog.component';
-import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
+import { MdDialogRef, MdDialog } from '@angular/material';
 import { Injectable } from '@angular/core';
 
 @Injectable()

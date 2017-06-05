@@ -9,13 +9,26 @@
   }
   .dashboard-sidenav {
     padding: 8px;
-    .main-screen-button {
-      width: 100%;
-      background-color: #aaa;
+    background-color: $grey-100;
+    .list-title {
+      margin: 12px 0 4px;
+      font-size: 1rem;
+      color: $grey-800;
+    }
+    .mat-nav-list {
+      padding: 0;
     }
     .mat-list-item {
-      background-color: #f9f9f9;
       word-break: break-all;
+      margin: 8px 0;
+      /deep/ .mat-list-item-content {
+        background-color: rgba(66, 66, 66, 0.4);
+        color: $grey-100;
+        font-size: 1rem;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
   .dashboard-content {
@@ -23,8 +36,9 @@
     display: flex;
     flex-direction: column;
     .header {
-      padding: 8px;
+      padding: 4px 8px;
       color: #666;
+
       .board-name {
         display: inline-block;
         margin: 0;
@@ -34,12 +48,15 @@
         display: inline-block;
         position: absolute;
         left: 50%;
-        top: 16px;
+        top: 14px;
         font-size: 1.2rem;
         cursor: pointer;
         user-select: none;
+        transition: color 0.3s ease;
+        color: $grey-800;
         &:hover {
-          color: $blue-700;
+          color: $lightBlue-600;
+          opacity: 0.8;
         }
       }
     }

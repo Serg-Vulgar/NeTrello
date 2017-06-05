@@ -4,9 +4,9 @@ import { Board } from './data.model';
 @Injectable()
 export class DataService {
   appName = 'NeTrello';
-// boards on start screen
+  // boards on start screen
   boards: Array<Board> = [];
-//selected board(on board page)
+  // selected board(on board page)
   currentBoard: Board;
 
   constructor() {

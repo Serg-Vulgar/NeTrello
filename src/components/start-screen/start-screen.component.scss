@@ -3,16 +3,19 @@
 :host {
   display: flex;
   height: 100%;
+  background-color: $grey-200;
   .content {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 8px;
-    background-color: #c6c6c6;
+
     flex: 1;
     overflow: auto;
     h2 {
       margin: 8px 0;
       font-size: 1rem;
       padding: 0 12px;
-      color: #666;
+      color: $grey-800;
     }
     .empty-list-text {
       position: absolute;
@@ -21,6 +24,11 @@
       transform: translate(-50%, -50%);
       font-size: 2rem;
       margin: 0;
+      background-color: rgba(66, 66, 66, 0.60);
+      color: $grey-200;
+      padding: 4px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
     }
   }
   .boards {
@@ -36,27 +44,34 @@
     min-width: 240px;
     width: 20%;
     height: 100px;
-    background-color: $blue-700;
     color: #fff;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     transition: background-color 0.3s linear;
     overflow: hidden;
+    position: relative;
     @media (max-width: 600px) {
       & {
         display: block;
         width: auto;
       }
     }
-
     &:hover {
-      background-color: #364687;
+      opacity: 0.8;
     }
     h3 {
       margin: 0;
       -ms-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 4px 8px;
+      background-color: rgba(66, 66, 66, 0.60);
+      font-size: 1rem;
+      line-height: 1rem;
     }
   }
   .add-new-board {

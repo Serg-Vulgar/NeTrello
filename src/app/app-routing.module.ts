@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-//
-// import { StartScreenComponent } from '../components/start-screen/start-screen.component'
-// import { BoardComponent } from '../components/board/board.component'
 
 @NgModule({
   imports: [

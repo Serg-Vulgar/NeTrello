@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortablejsModule } from 'angular-sortablejs';
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { DragScrollModule } from 'angular2-drag-scroll';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -18,8 +19,10 @@ import { CardInfoComponent } from '../card/card-info/card-info.component';
 import { DataService } from '../../services/data.service';
 import { DialogModule } from '../dialog/dialog.module';
 
-import { ClickOutsideDirective } from '../../directives/click-outside.directive'
-import { FocusDirective } from '../../directives/focus.directive'
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { FocusDirective } from '../../directives/focus.directive';
+
+import {GetInitialsPipe} from '../../pipes/getinitials.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +33,8 @@ import { FocusDirective } from '../../directives/focus.directive'
     MaterialModule,
     MdNativeDateModule,
     DialogModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    DragScrollModule
   ],
   declarations: [
     DashboardComponent,
@@ -40,7 +44,8 @@ import { FocusDirective } from '../../directives/focus.directive'
     CardInfoComponent,
     StartScreenComponent,
     ClickOutsideDirective,
-    FocusDirective
+    FocusDirective,
+    GetInitialsPipe
   ],
   entryComponents: [
     CardInfoComponent

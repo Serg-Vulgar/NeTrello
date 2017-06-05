@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog } from '@angular/material';
 
 import { Column } from '../../services/data.model';
 import { DataService } from '../../services/data.service';
 import { DialogsService } from '../dialog/dialog.service';
-
 
 @Component({
   selector: 'column',
@@ -20,6 +19,9 @@ export class ColumnComponent implements OnInit {
   addCardForm: FormGroup;
   addCardBlock = false;
 
+  editNameBlock = false;
+  columnName: string;
+
   options: SortablejsOptions = {
     group: 'cards',
     animation: 150,
@@ -27,6 +29,11 @@ export class ColumnComponent implements OnInit {
       this.dataService.updateCurrentBoard();
     },
   };
+
+  detailsBlock = false;
+
+  allTasks: number;
+  doneTasks: number;
 
   constructor(private fb: FormBuilder,
               private dataService: DataService,
@@ -36,7 +43,8 @@ export class ColumnComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-
+    this.columnName = this.column.name;
+    this.getColumnInfo()
   }
 
   createForm(): void {
@@ -45,9 +53,12 @@ export class ColumnComponent implements OnInit {
     });
   }
 
-  openAddCardBlock(e: Event) {
+  openAddCardBlock(e: Event, el: any) {
     e.stopPropagation();
     this.addCardBlock = true;
+    setTimeout(() => {
+      el.scrollTop = el.scrollHeight;
+    }, 100);
   }
 
   closeAddCardBlock() {
@@ -65,6 +76,8 @@ export class ColumnComponent implements OnInit {
           description: '',
           dueDate: null,
           comments: [],
+          members: [],
+          attachments: [],
           checkLists: []
         });
         this.dataService.updateCurrentBoard();
@@ -81,6 +94,53 @@ export class ColumnComponent implements OnInit {
           this.dataService.deleteColumn(this.column.id);
         }
       });
+  }
+
+  editColumndName(e: Event) {
+    e.stopPropagation();
+    this.editNameBlock = true;
+  }
+
+  saveColumnName() {
+    if (this.columnName && /\S/.test(this.columnName)) {
+      this.columnName = this.columnName.trim();
+      this.column.name = this.columnName;
+      this.dataService.updateCurrentBoard();
+    } else {
+      this.columnName = this.column.name;
+    }
+    this.editNameBlock = false
+  }
+
+  getColumnInfo() {
+    this.allTasks = 0;
+    this.doneTasks = 0;
+    this.column.cards.forEach((card) => {
+      if (card.checkLists.length) {
+        card.checkLists.forEach((list) => {
+          this.allTasks += list.items.length;
+          this.doneTasks += list.items.filter((task: any) => {
+            return task.done;
+          }).length;
+        })
+      }
+    });
+  }
+
+  toggleDetails() {
+    this.detailsBlock = !this.detailsBlock;
+  }
+
+  closeCardHandler() {
+    this.getColumnInfo();
+  }
+
+  deleteCardHandler(id: number) {
+    this.column.cards = this.column.cards.filter((card) => {
+      return card.id !== id;
+    });
+    this.dataService.updateCurrentBoard();
+    this.getColumnInfo();
   }
 
 }

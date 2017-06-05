@@ -1,9 +1,14 @@
-:host {
+@import '../../styles/variables';
 
+:host {
   .board-wrapper {
     height: 100%;
   }
   .board-sidenav {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 100%;
     .sidenav-header {
       background-color: #aaa;
       h4 {
@@ -13,14 +18,27 @@
     }
     .sidenav-content {
       padding: 8px;
+      overflow: auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: center;
       .board-colors {
         list-style: none;
         padding: 0;
-
-        .color {
+        text-align: center;
+        .theme {
+          cursor: pointer;
+          margin: 4px;
           min-width: 0;
-          width: 50px;
-          height: 50px;
+          width: 80px;
+          height: 80px;
+          border-radius: 2px;
+          display: inline-block;
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -31,15 +49,9 @@
     flex-direction: column;
   }
 
-  //background-color: #e2e2e2;
-  //position: relative;
-  //width: 100%;
-  //height: 100%;
-  //display: flex;
-  //flex-direction: column;
-  //letter-spacing: normal;
   .header {
-    background-color: rgba(183, 183, 183, 0.46);
+    background-color: rgba(66, 66, 66, 0.8);
+    color: $grey-100;
     h2 {
       margin: 0;
       text-overflow: ellipsis;
@@ -69,11 +81,6 @@
         padding-left: 12px;
       }
     }
-    .board-menu {
-      /*      width: 28px;
-            height: 28px;
-            line-height: 28px;*/
-    }
   }
   .content {
     flex: 1;
@@ -87,6 +94,11 @@
       transform: translate(-50%, -50%);
       font-size: 2rem;
       margin: 0;
+      background-color: rgba(66, 66, 66, 0.60);
+      color: $grey-200;
+      padding: 4px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
     }
   }
 
@@ -128,5 +140,22 @@
     position: fixed;
     bottom: 16px;
     right: 16px;
+  }
+
+  .sortable-ghost {
+    box-shadow: none;
+    opacity: 0.7;
+    /deep/ .column {
+      position: relative;
+      &:after {
+        content: '';
+        background-color: #7e7e7e;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
   }
 }

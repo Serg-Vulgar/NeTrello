@@ -1,73 +1,96 @@
-<div class="header" layout="row" layout-align="space-between center">
-  <h2>{{ column.name }}</h2>
+<div class="column">
 
-  <div>
-    <button md-icon-button [mdMenuTriggerFor]="columnMenu">
-      <md-icon>more_vert</md-icon>
-    </button>
+  <div class="header">
+    <h2 *ngIf="!editNameBlock"
+        (click)="editColumndName($event)"
+        class="column-name">{{ column.name }}</h2>
 
-    <md-menu #columnMenu="mdMenu">
-      <button md-menu-item> Settings</button>
-      <button md-menu-item (click)="openDeleteDialog()">Delete</button>
-    </md-menu>
-  </div>
+    <md-input-container *ngIf="editNameBlock">
+      <input mdInput
+             #nameInput
+             maxlength="50"
+             mdTooltip="Maximum 50 symbols"
+             [(ngModel)]="columnName"
+             [focus]="true"
+             (clickOutside)="saveColumnName()"
+             (keyup.enter)="saveColumnName()">
+    </md-input-container>
 
-</div>
-
-<div class="content">
-
-  <div [sortablejs]="column?.cards" [sortablejsOptions]="options" [runInsideAngular]="true">
-    <card [card]="card" *ngFor="let card of column?.cards"></card>
-  </div>
-
-  <div *ngIf="!column?.cards.length" [sortablejs]="column?.cards" [sortablejsOptions]="options"
-       [runInsideAngular]="true" class="ghost-card">
-  </div>
-
-  <div>
-    <div layout="row"
-         layout-align="end center"
-         *ngIf="!addCardBlock">
-      <button md-icon-button
-              class="add-board-button"
-              type="button"
-              md-tooltip="Add new card"
-              (click)="openAddCardBlock($event)">
-        <md-icon>add</md-icon>
+    <div class="header-button">
+      <button md-icon-button [mdMenuTriggerFor]="columnMenu">
+        <md-icon>more_vert</md-icon>
       </button>
+
+      <md-menu #columnMenu="mdMenu">
+        <button md-menu-item (click)="toggleDetails()">{{ detailsBlock ? 'Hide details' : 'Show details' }}</button>
+        <button md-menu-item (click)="openDeleteDialog()">Delete</button>
+      </md-menu>
     </div>
 
-    <div layout="column"
-         *ngIf="addCardBlock"
-         class="add-card-block"
-         (clickOutside)="closeAddCardBlock()">
-
-      <form [formGroup]="addCardForm"
-            novalidate
-            (ngSubmit)="addCard()">
-
-        <md-input-container class="full-width">
-          <input mdInput
-                 placeholder="New card name"
-                 formControlName="cardName"
-                 maxlength="50"
-                 mdTooltip="Maximum 50 symbols"
-                 [focus]="true">
-        </md-input-container>
-
-        <div layout="row" layout-align="center">
-          <button md-button type="submit">Add</button>
-          <button md-icon-button color="warn" type="button"
-                  (click)="closeAddCardBlock()">
-            <md-icon>close</md-icon>
-          </button>
-        </div>
-      </form>
-
+    <div class="info" *ngIf="detailsBlock">
+      <p>
+        <md-icon>check_box</md-icon>
+        <span>Tasks progress: {{ doneTasks }}/{{ allTasks }}</span>
+      </p>
     </div>
 
   </div>
+
+  <div class="content" #content>
+
+    <div [sortablejs]="column?.cards" [sortablejsOptions]="options" [runInsideAngular]="true">
+      <card [card]="card" *ngFor="let card of column?.cards"
+            (deleteCard)="deleteCardHandler($event)"
+            (closeCard)="closeCardHandler($event)"></card>
+    </div>
+
+    <div *ngIf="!column?.cards.length" [sortablejs]="column?.cards" [sortablejsOptions]="options"
+         [runInsideAngular]="true" class="ghost-card">
+    </div>
+
+    <div>
+      <div layout="row"
+           layout-align="end center"
+           *ngIf="!addCardBlock">
+        <button md-icon-button
+                class="add-board-button"
+                type="button"
+                md-tooltip="Add new card"
+                (click)="openAddCardBlock($event, content)">
+          <md-icon>add</md-icon>
+        </button>
+      </div>
+
+      <div layout="column"
+           *ngIf="addCardBlock"
+           class="add-card-block"
+           (clickOutside)="closeAddCardBlock()">
+
+        <form [formGroup]="addCardForm"
+              novalidate
+              (ngSubmit)="addCard()">
+
+          <md-input-container class="full-width">
+            <input mdInput
+                   placeholder="New card name"
+                   formControlName="cardName"
+                   maxlength="50"
+                   mdTooltip="Maximum 50 symbols"
+                   [focus]="true">
+          </md-input-container>
+
+          <div layout="row" layout-align="center">
+            <button md-button type="submit">Add</button>
+            <button md-icon-button color="warn" type="button"
+                    (click)="closeAddCardBlock()">
+              <md-icon>close</md-icon>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
 </div>
-
-
-

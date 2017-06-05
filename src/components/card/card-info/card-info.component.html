@@ -75,7 +75,9 @@
           <ul class="comments" *ngIf="card.comments.length">
             <li *ngFor="let comment of card.comments; let i = index" class="comment">
               <p>{{ comment }}</p>
-              <md-icon (click)="deleteComment(i)" md-tooltip="Delete comment" color="warn">close</md-icon>
+              <md-icon (click)="deleteComment(i)"
+                       md-tooltip="Delete comment" color="warn">close
+              </md-icon>
             </li>
           </ul>
 
@@ -85,7 +87,6 @@
                         placeholder="Comment"
                         maxlength="200"
                         mdTooltip="Maximum 200 symbols"
-                        [focus]="true"
                         [(ngModel)]="comment">
               </textarea>
             </md-input-container>
@@ -184,6 +185,7 @@
     </li>
     <!--end check list-->
 
+    <!--due date-->
     <li class="list-item">
       <md-icon md-list-icon class="item-icon">check_box</md-icon>
       <div class="item-body">
@@ -214,26 +216,100 @@
         </div>
       </div>
     </li>
+    <!--end due date-->
 
+    <!--members-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">people</md-icon>
+      <div class="item-body">
+        <h3 class="item-title">
+          Members
+        </h3>
+        <div class="item-content">
+          <ul class="members" *ngIf="card.members.length">
+            <li *ngFor="let member of card.members; let i = index" class="member">
 
-    <!--<li class="list-item">-->
-    <!--<md-icon md-list-icon class="item-icon">check_box</md-icon>-->
-    <!--<div class="item-body">-->
-    <!--<h3 class="item-title">-->
+              <md-icon (click)="deleteMember(i)" color="warn">close</md-icon>
+            </li>
+          </ul>
 
-    <!--</h3>-->
-    <!--<div class="item-content">-->
+          <div>
+            <md-input-container class="full-width">
+              <input mdInput
+                     placeholder="Member name"
+                     maxlength="50"
+                     mdTooltip="Maximum 50 symbols"
+                     [(ngModel)]="member"
+                     (keyup.enter)="addMember()">
+            </md-input-container>
 
-    <!--</div>-->
-    <!--</div>-->
-    <!--</li>-->
+            <div layout="row" layout-align="end center">
+              <button md-button type="button"
+                      (click)="addMember()"
+                      [disabled]="!member">Add member
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--end members-->
+
+    <!--attachments-->
+    <li class="list-item">
+      <md-icon md-list-icon class="item-icon">attachment</md-icon>
+      <div class="item-body">
+        <h3 class="item-title">
+          Attachments
+        </h3>
+        <div class="item-content">
+          <ul class="attachments" *ngIf="card.attachments.length">
+            <li *ngFor="let attachment of card.attachments; let i = index" class="attachment">
+              <a [href]="attachment.link" target="_blank">
+                {{ attachment.name ? attachment.name : attachment.link }}
+              </a>
+              <md-icon (click)="deleteAttachment(i)" color="warn"
+                       md-tooltip="Delete attachment">close
+              </md-icon>
+            </li>
+          </ul>
+
+          <div>
+            <md-input-container class="full-width">
+              <input mdInput
+                     placeholder="Attachment link"
+                     maxlength="200"
+                     mdTooltip="Maximum 200 symbols"
+                     [(ngModel)]="attachment.link"
+                     (keyup.enter)="addAttachment()">
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <input mdInput
+                     placeholder="Attachment name(not required)"
+                     maxlength="50"
+                     mdTooltip="Maximum 50 symbols"
+                     [(ngModel)]="attachment.name"
+                     [disabled]="!attachment.link"
+                     (keyup.enter)="addAttachment()">
+            </md-input-container>
+
+            <div layout="row" layout-align="end center">
+              <button md-button type="button"
+                      (click)="addAttachment()"
+                      [disabled]="!attachment.link">Add attachment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <!--end attachments-->
 
   </ul>
 
-
-  <md-list dense>
-
-
-  </md-list>
+  <p class="text-center">
+    <button md-raised-button (click)="deleteCard()" color="warn">Delete card</button>
+  </p>
 
 </div>

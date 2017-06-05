@@ -1,0 +1,68 @@
+@import "variables";
+
+.theme {
+  background: no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.theme-0 {
+  background-color: $lightBlue-600;
+}
+
+.theme-1 {
+  background-color: $orange-400;
+}
+
+.theme-2 {
+  background-color: $blue-grey-500;
+}
+
+.theme-3 {
+  background-color: $lime-400;
+}
+
+.theme-4 {
+  background-color: $cyan-600;
+}
+
+.theme-5 {
+  background-color: $deep-purple-500;
+}
+
+.theme-6 {
+  background-color: $green-300;
+}
+
+.theme-7 {
+  background-color: $teal-500;
+}
+
+.theme-8 {
+  background-color: $pink-400;
+}
+
+.theme-9 {
+  background-image: url("../assets/img/bg1.jpg");
+}
+
+.theme-10 {
+  background-image: url("../assets/img/bg2.jpg");
+}
+
+.theme-11 {
+  background-image: url("../assets/img/bg3.jpg");
+}
+
+.theme-12 {
+  background-image: url("../assets/img/bg4.jpg");
+}
+
+.theme-13 {
+  background-image: url("../assets/img/bg5.jpg");
+}
+
+.theme-14 {
+  background-image: url("../assets/img/bg6.jpg");
+}
+

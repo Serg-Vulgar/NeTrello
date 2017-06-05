@@ -1,13 +1,11 @@
 <div class="content">
-
   <p class="empty-list-text" *ngIf="!boards.length">To add board click + button</p>
 
   <div *ngIf="boards.length">
-
     <h2>Boards:</h2>
 
     <ul class="boards">
-      <li class="board"
+      <li class="board theme {{ 'theme-' + board.boardTheme }}"
           (click)="openBoard(board.id)"
           *ngFor="let board of boards">
         <h3>{{ board.name }}</h3>

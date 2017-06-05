@@ -1,14 +1,17 @@
+@import '../../styles/variables';
+
 :host {
   display: block;
-  background-color: #f7f7f7;
+  background-color: $grey-50;
+  color: $grey-800;
   margin: 8px 0;
   border-radius: 2px;
-  transition: all 0.3s linear;
+  transition: all 0.2s ease;
   word-break: break-all;
-  &:hover {
-    background-color: #e2e2e2;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
+  &:hover {
+    background-color: $grey-100;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   .content {
     min-height: 24px;
@@ -16,18 +19,23 @@
     cursor: pointer;
     padding: 8px;
 
-    h3 {
+    .title {
       margin: 0;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.2rem;
     }
   }
   .info {
     margin-top: 4px;
     vertical-align: middle;
-    color: #555;
+    color: $grey-500;
     .mat-icon, span {
       vertical-align: middle;
       font-size: 1rem;
+    }
+    .number {
+      font-size: 0.8rem;
+      vertical-align: bottom;
     }
     p {
       margin: 0;
@@ -36,12 +44,29 @@
       display: inline-block;
       padding: 2px 4px;
       border-radius: 2px;
-      background-color: #5884ff;
-      color: #474747;
+      background-color: $blue-700;
+      color: $grey-100;
       vertical-align: middle;
       span {
         font-size: 0.7rem;
         vertical-align: middle;
+      }
+    }
+    .due-date-over {
+      background-color: $red-600;
+    }
+
+    .tasks {
+      padding: 2px 4px;
+      border-radius: 2px;
+      margin: 2px;
+      span {
+        font-size: 0.7rem;
+        vertical-align: middle;
+      }
+      &.complete {
+        background-color: $green-400;
+        color: $grey-800;
       }
     }
   }

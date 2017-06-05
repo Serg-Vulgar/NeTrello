@@ -2,6 +2,7 @@ export interface Board {
   id: number,
   name: string,
   columns: Array<Column>
+  boardTheme?: number
 }
 
 export interface Column {

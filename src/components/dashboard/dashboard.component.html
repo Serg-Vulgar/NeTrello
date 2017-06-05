@@ -1,17 +1,18 @@
 <md-sidenav-container class="dashboard-wrapper">
   <md-sidenav #sidenav class="dashboard-sidenav">
 
-    <h4>Boards list:</h4>
-
     <button md-raised-button
-            class="main-screen-button"
+            class="full-width"
+            color="primary"
             (click)="openStartPage(); sidenav.close()">
-      Organize boards
+      All boards
     </button>
+
+    <h2 class="list-title">Boards list:</h2>
 
     <md-nav-list>
       <md-list-item (click)="openBoard(board.id); sidenav.close()"
-                    *ngFor="let board of boards">
+                    *ngFor="let board of boards" class=" theme mat-list-item {{ 'theme-' + board.boardTheme }}">
         {{ board.name }}
       </md-list-item>
     </md-nav-list>
@@ -20,11 +21,10 @@
 
   <div class="dashboard-content">
     <div class="header">
-      <button md-button color="accent" (click)="sidenav.open()">
-        <md-icon class="md-18">view_headline</md-icon>
-        Boards
+      <button md-icon-button color="primary" (click)="sidenav.open()">
+        <md-icon>view_headline</md-icon>
       </button>
-      <h2 class="title" [routerLink]="['/start']">NeTrello</h2>
+      <h3 class="title" [routerLink]="['/start']">NeTrello</h3>
     </div>
     <div class="content">
       <router-outlet></router-outlet>
