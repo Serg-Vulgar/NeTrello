@@ -28,4 +28,8 @@ export class DashboardComponent implements OnInit {
   openBoard(id: number) {
     this.router.navigate(['/board', id]);
   }
+
+  updateBoards() {
+    this.boards = this.dataService.boards;
+  }
 }
