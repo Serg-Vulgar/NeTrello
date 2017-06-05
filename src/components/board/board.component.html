@@ -29,7 +29,8 @@
   </md-sidenav>
 
   <div class="board-content theme {{ 'theme-' + board?.boardTheme }}">
-    <div class="header" layout="row" layout-align="space-between center">
+    <div class="header">
+
       <div class="full-width">
         <h2 (click)="editBoardName($event)" *ngIf="!editNameBlock">{{ board?.name }}</h2>
         <md-input-container *ngIf="editNameBlock">

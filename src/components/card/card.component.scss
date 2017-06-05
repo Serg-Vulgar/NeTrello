@@ -29,13 +29,20 @@
     margin-top: 4px;
     vertical-align: middle;
     color: $grey-500;
-    .mat-icon, span {
+    .mat-icon {
+      font-size: 1rem;
+      line-height: 1rem;
+      width: 1rem;
+      height: 1rem;
+      vertical-align: middle;
+    }
+    span {
       vertical-align: middle;
       font-size: 1rem;
     }
     .number {
       font-size: 0.8rem;
-      vertical-align: bottom;
+      vertical-align: middle;
     }
     p {
       margin: 0;
@@ -60,10 +67,7 @@
       padding: 2px 4px;
       border-radius: 2px;
       margin: 2px;
-      span {
-        font-size: 0.7rem;
-        vertical-align: middle;
-      }
+      display: inline-block;
       &.complete {
         background-color: $green-400;
         color: $grey-800;

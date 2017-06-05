@@ -2,7 +2,6 @@
 @import 'theme';
 @import "variables";
 @import "typography";
-@import "../../node_modules/dragula/dist/dragula.css";
 @import "board-themes";
 
 html {
@@ -80,18 +79,31 @@ ul {
   }
 }
 
-// sortableJS ghost element
-//.sortable-ghost {
-//  box-shadow: none;
-//  opacity: 0.7;
-//  &:after {
-//    content: '';
-//    background-color: #7e7e7e;
-//    position: absolute;
-//    top: 0;
-//    bottom: 0;
-//    left: 0;
-//    right: 0;
-//  }
-//}
+.text-center {
+  text-align: center;
+}
 
+.layout-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-end {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.content-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-center {
+  justify-content: center;
+  align-items: center;
+}

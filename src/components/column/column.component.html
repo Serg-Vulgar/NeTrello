@@ -49,11 +49,10 @@
     </div>
 
     <div>
-      <div layout="row"
-           layout-align="end center"
+      <div class="layout-row content-end"
            *ngIf="!addCardBlock">
         <button md-icon-button
-                class="add-board-button"
+                class="add-card-button"
                 type="button"
                 md-tooltip="Add new card"
                 (click)="openAddCardBlock($event, content)">
@@ -79,8 +78,8 @@
                    [focus]="true">
           </md-input-container>
 
-          <div layout="row" layout-align="center">
-            <button md-button type="submit">Add</button>
+          <div class="layout-row content-center">
+            <button md-button type="submit" color="accent">Add</button>
             <button md-icon-button color="warn" type="button"
                     (click)="closeAddCardBlock()">
               <md-icon>close</md-icon>

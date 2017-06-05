@@ -10,6 +10,7 @@
   .dashboard-sidenav {
     padding: 8px;
     background-color: $grey-100;
+    width: 280px;
     .list-title {
       margin: 12px 0 4px;
       font-size: 1rem;
@@ -54,6 +55,7 @@
         user-select: none;
         transition: color 0.3s ease;
         color: $grey-800;
+        outline: none;
         &:hover {
           color: $lightBlue-600;
           opacity: 0.8;

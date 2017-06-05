@@ -5,12 +5,16 @@
     height: 100%;
   }
   .board-sidenav {
+    width: 300px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     max-height: 100%;
     .sidenav-header {
       background-color: #aaa;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       h4 {
         margin: 0;
         padding: 8px;
@@ -52,6 +56,10 @@
   .header {
     background-color: rgba(66, 66, 66, 0.8);
     color: $grey-100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     h2 {
       margin: 0;
       text-overflow: ellipsis;

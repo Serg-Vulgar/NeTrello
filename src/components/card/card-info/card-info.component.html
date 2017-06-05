@@ -34,7 +34,7 @@
           <span class="change-description-button" (click)="openDescriptionBlock($event)" *ngIf="!descriptionBlock">
             {{ card.description ? 'Change description' : 'Add description' }}
           </span>
-          <div layout="column">
+          <div class="layout-column">
 
             <div *ngIf="descriptionBlock" (clickOutside)="closeDescriptionBlock()">
               <md-input-container class="full-width">
@@ -47,7 +47,7 @@
                 </textarea>
               </md-input-container>
 
-              <div layout="row" layout-align="center">
+              <div class="layout-row content-center">
                 <button md-button type="button"
                         (click)="saveDescription()">Save
                 </button>
@@ -91,9 +91,10 @@
               </textarea>
             </md-input-container>
 
-            <div layout="row" layout-align="end center">
+            <div class="layout-row content-end">
               <button md-button type="button"
                       (click)="sendComment()"
+                      color="accent"
                       [disabled]="!comment">Send
               </button>
             </div>
@@ -114,11 +115,11 @@
 
           <ul>
             <li *ngFor="let checkList of card.checkLists; let i = index;" class="check-list">
-              <div layout="row" layout-align="space-between center" class="check-list-header">
+              <div class="check-list-header layout-row content-between">
                 <h2>{{ checkList.name }}</h2>
                 <md-icon md-tooltip="Delete check list" color="warn" (click)="deleteChecklist(i)">close</md-icon>
               </div>
-              <div layout="row" layout-align="space-between center" class="progress">
+              <div class="progress layout-row content-center">
                 <span class="percents">
                   {{ getDonePercent(checkList) }} %
                 </span>
@@ -131,20 +132,19 @@
 
               <!--check list item-->
               <ul *ngIf="checkList.items.length">
-                <li *ngFor="let item of checkList.items; let itemIndex = index" class="list-item"
-                    layout="row" layout-align="space-between center">
+                <li *ngFor="let item of checkList.items; let itemIndex = index"
+                    class="list-item layout-row content-between">
                   <div>
                     <md-checkbox [checked]="item.done" (change)="checkOnListItem(item)"></md-checkbox>
                     {{ item.name }}
                   </div>
-                  <md-icon class="md-18"
-                           (click)="deleteaddCheckListItem(checkList, itemIndex)"
+                  <md-icon (click)="deleteaddCheckListItem(checkList, itemIndex)"
                            md-tooltip="Delete item" color="warn">close
                   </md-icon>
                 </li>
               </ul>
 
-              <div layout="row" layout-align="space-between center">
+              <div class="layout-row content-between">
                 <md-input-container class="full-width">
                   <input mdInput
                          placeholder="Item name"
@@ -172,10 +172,11 @@
                    [(ngModel)]="checkListName"
                    (keyup.enter)="addCheckList()">
           </md-input-container>
-          <div layout="row" layout-align="end center">
+          <div class="layout-row content-end">
             <button md-button
                     type="button"
                     (click)="addCheckList()"
+                    color="accent"
                     [disabled]="!checkListName">
               Add checklist
             </button>
@@ -192,7 +193,7 @@
         <h3 class="item-title">
           Due date
         </h3>
-        <div class="item-content" layout-align="space-between center" layout="row">
+        <div class="item-content layout-row content-between">
           <div>
             <md-input-container>
               <input mdInput [mdDatepicker]="picker"
@@ -228,7 +229,7 @@
         <div class="item-content">
           <ul class="members" *ngIf="card.members.length">
             <li *ngFor="let member of card.members; let i = index" class="member">
-
+              <p class="member-name" md-tooltip="{{ member }}">{{ member | getInitials }}</p>
               <md-icon (click)="deleteMember(i)" color="warn">close</md-icon>
             </li>
           </ul>
@@ -243,9 +244,10 @@
                      (keyup.enter)="addMember()">
             </md-input-container>
 
-            <div layout="row" layout-align="end center">
+            <div class="layout-row content-end">
               <button md-button type="button"
                       (click)="addMember()"
+                      color="accent"
                       [disabled]="!member">Add member
               </button>
             </div>
@@ -294,9 +296,10 @@
                      (keyup.enter)="addAttachment()">
             </md-input-container>
 
-            <div layout="row" layout-align="end center">
+            <div class="layout-row content-end">
               <button md-button type="button"
                       (click)="addAttachment()"
+                      color="accent"
                       [disabled]="!attachment.link">Add attachment
               </button>
             </div>

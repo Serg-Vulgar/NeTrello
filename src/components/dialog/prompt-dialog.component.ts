@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   selector: 'prompt-dialog',
   template: `
     <form [formGroup]="promptForm" novalidate (ngSubmit)="confirm()">
-      <md-input-container>
+      <md-input-container class="full-width">
         <input mdInput placeholder="{{ message }}"
                formControlName="promptText"
                [maxlength]="maxLength"
