@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortablejsModule } from 'angular-sortablejs';
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
-import { DragScrollModule } from 'angular2-drag-scroll';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -33,8 +32,7 @@ import {GetInitialsPipe} from '../../pipes/getinitials.pipe';
     MaterialModule,
     MdNativeDateModule,
     DialogModule,
-    DashboardRoutingModule,
-    DragScrollModule
+    DashboardRoutingModule
   ],
   declarations: [
     DashboardComponent,
